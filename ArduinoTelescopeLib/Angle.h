@@ -66,6 +66,7 @@ public:
 protected:
     void DtoR();
     void FillAngleContainers();
+    double OneRot(double);
 
 };
 

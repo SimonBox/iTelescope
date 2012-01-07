@@ -10,6 +10,7 @@
 
 #include "Navigation.h"
 #include "Observer.h"
+#include "AstroTime.h"
 
 class Coordinates : public Navigation{
 public:

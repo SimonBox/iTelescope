@@ -11,6 +11,7 @@
 #include "Angle.h"
 #include "DateTime.h"
 #include "Navigation.h"
+#include "AstroTime.h"
 
 class Observer : public Navigation{
 public:

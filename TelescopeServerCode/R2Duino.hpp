@@ -30,6 +30,8 @@ public:
 
     //class Functions
     void RunLoop();
+    void SendMessage(string);
+
 
 
 

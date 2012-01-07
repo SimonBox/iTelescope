@@ -18,6 +18,9 @@ Observer::Observer(Angle la, Angle lo) {
 void Observer::UpdateTime(DateTime Tme){
     Time = Tme;
     SiderealTime();
+    //AstroTime astro;
+    //DateTime dLST = astro.CalcLSTFromUT(Tme,Long.degrees);
+    //LST = AngleHrs(dLST.Hour,dLST.Minute,dLST.Seconds);
 
 }
 

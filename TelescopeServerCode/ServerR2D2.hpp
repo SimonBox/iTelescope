@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 class ServerR2D2 : public Server
 {
 public:
+    double LastRA;
+    double LastDec;
 	ServerR2D2(int port);
 	void step(long long int timeout_micros);
 	

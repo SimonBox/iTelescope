@@ -38,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 ServerR2D2::ServerR2D2(int port)
             :Server(port)
 {
+    LastRA = 0.0;
+    LastDec = 0.0;
 	current_pos[0] = desired_pos[0] = 1.0;
 	current_pos[1] = desired_pos[1] = 0.0;
 	current_pos[2] = desired_pos[2] = 0.0;
@@ -77,10 +79,26 @@ void ServerR2D2::step(long long int timeout_micros)
 		  //                       sqrt(current_pos[0]*current_pos[0]+current_pos[1]*current_pos[1]));
 
                 R2Duino CallArd = R2Duino();
+                time_t timeNow;
+                timeNow = time(NULL);
+                stringstream tString("");
+                tString<<"T";
+                tString<<timeNow;
+                cout<<tString.str()<<endl;
+                CallArd.SendMessage(tString.str());
                 CallArd.RunLoop();
 
                 Angle Dec = AngleRads(CallArd.DE);
                 Angle RA = AngleRads(CallArd.RA);
+
+                if(RA.radians == 0 && Dec.radians == 0)
+                {
+                  RA = AngleRads(LastRA);
+                  Dec = AngleRads(LastDec);
+                }
+
+                LastRA = RA.radians;
+                LastDec = Dec.radians;
                 //Angle RA= AngleDegs(267);
                 //Angle Dec = AngleDegs(15);
                 //Angle Lat = AngleDegs(49);
@@ -107,7 +125,12 @@ void ServerR2D2::step(long long int timeout_micros)
                 //const double ra = AngleConvert.RA.radians;
                 //const double dec = AngleConvert.Dec.radians;
                 const double ra = RA.radians;
-                const double dec = Dec.radians;
+                double decp = Dec.radians;
+                if(decp>M_PI)
+                {
+                    decp = -2*M_PI+decp;
+                }
+                const double dec = decp;
 		const unsigned int ra_int = (unsigned int)floor(
 		                               0.5 +  ra*(((unsigned int)0x80000000)/M_PI));
 		const int dec_int = (int)floor(0.5 + dec*(((unsigned int)0x80000000)/M_PI));

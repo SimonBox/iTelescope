@@ -29,7 +29,9 @@ void Coordinates::SetAzAlt(Angle AzIn, Angle AltIn){
         HA = AngleDegs(360 - HA.degrees);
     }
 
-    Ra = AngleDegs(Param360(TimeAndLoc.LST.degrees-HA.degrees));
+    Ra = AngleDegs(TimeAndLoc.LST.degrees-HA.degrees);
+
+
 
 }
 

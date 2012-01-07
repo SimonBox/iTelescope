@@ -10,7 +10,7 @@
 R2Duino::R2Duino() {
     const char *inname = "/dev/ttyACM0";
     int baud = 9600;
-    infile = fopen(inname, "r");
+    infile = fopen(inname, "r+");
     char inbuf[80];
 
     /*
@@ -72,6 +72,20 @@ void R2Duino::RunLoop(){
 
 
     }
+}
+
+void R2Duino::SendMessage(string message)
+{
+    //const char *inname = "/dev/ttyACM0";
+    //FILE *outfile = fopen(inname, "w");
+    int e;
+    string::iterator mIt = message.begin();
+    while(mIt != message.end())
+    {
+        e = putc((unsigned int)*mIt,infile);
+        mIt++;
+    }
+
 }
 
 
