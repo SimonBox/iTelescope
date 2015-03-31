@@ -198,7 +198,7 @@ class uInterface(object):
         return uNumber       
                    
     def readCoordinatesMenu(self, theClient):      
-        call("clear")
+        #call("clear") #commented as does not work under windows ans functionality non-essential
         print "** Current coordinates of telescope orientation:\n"
         theClient.evaluationMode()
         
