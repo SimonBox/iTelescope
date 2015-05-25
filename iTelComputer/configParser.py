@@ -83,6 +83,36 @@ class calibrationParser(configParser):
         AltCalDn = self.getCoefficientsNode("altitude", "down")
         return [AltCalUp,AltCalDn]
         
+    def setAzimuthCalibration(self, values):
+        self.__setCalibration("azimuth","up",values)
+        self.__setCalibration("azimuth","down",values)
+
+    def setAltitudeCalibration(self, values):
+        self.__setCalibration("altitude","up",values)
+        self.__setCalibration("altitude","down",values)
+
+    def setAzimuthUpCalibration(self, values):
+        self.__setCalibration("azimuth","up",values)
+        
+    def setAzimuthDownCalibration(self, values):
+        self.__setCalibration("azimuth","down",values)
+        
+    def setAltitudeUpCalibration(self, values):
+        self.__setCalibration("altitude","up",values)
+        
+    def setAltitudeDownCalibration(self, values):
+        self.__setCalibration("altitude","down",values)
+        
+    def __setCalibration(self, axis, direction, values):
+        self.parse()
+        theNode = self.dom.getElementsByTagName(axis)[0]
+        childNode = theNode.getElementsByTagName(direction)[0]
+        relNode = childNode.getElementsByTagName("coefficients")[0]        
+        relNode.attributes["c"] = values
+        self.configFile = open(self.fileName, "w")
+        self.printXML()
+        self.configFile.close()
+        
     
     def getCoefficientsNode(self,axis,direction):
         axisNode = self.dom.getElementsByTagName(axis)[0]
